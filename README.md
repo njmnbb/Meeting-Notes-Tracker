@@ -1,1 +1,1 @@
-# Meeting-Notes_Tracker
+# Meeting-Notes-Tracker
