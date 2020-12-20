@@ -1,0 +1,23 @@
+{
+  "name": "meeting-notes-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/njmnbb/Meeting-Notes_Tracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/njmnbb/Meeting-Notes_Tracker/issues"
+  },
+  "homepage": "https://github.com/njmnbb/Meeting-Notes_Tracker#readme",
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "node-cron": "^2.0.3"
+  }
+}
