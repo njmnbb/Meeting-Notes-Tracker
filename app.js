@@ -1,4 +1,4 @@
-const {token} = require("./config.json");
+const {token, zoomLink} = require("./config.json");
 const Discord = require("discord.js");
 const cron = require("node-cron");
 const bot = new Discord.Client();
@@ -16,9 +16,11 @@ bot.on('ready', function() {
 
             Every topic below this message will be discussed at the weekly Cat Piss meeting on ${futureMeetingDate}
 
+            Weekly meeting can be joined here: ${zoomLink}
+
             All topics above this message have been, or will be, discussed at the meeting on ${currentMeetingDate}
             
-            **Please include all future meeting topics below this message**`);
+            **Please include all meeting topics for the ${futureMeetingDate} meeting below this message**`);
     });
 })
 
