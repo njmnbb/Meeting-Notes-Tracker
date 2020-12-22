@@ -10,17 +10,20 @@ bot.on('ready', function() {
     const currentMeetingDate = getMeetingDate(false);
     const futureMeetingDate = getMeetingDate(true);
 
-    cron.schedule('* * 19 * * */2', () => {
-        bot.channels.cache.get('790298224535666709')
+    cron.schedule('0 0 19 * * */2', () => {
+        bot.channels.cache.get('776261999595356223')
             .send(`@everyone
 
-            Every topic below this message will be discussed at the weekly Cat Piss meeting on ${futureMeetingDate}.
+Every topic below this message will be discussed at the weekly Cat Piss meeting on ${futureMeetingDate}.
 
-            Weekly meeting can be joined here: ${zoomLink}. Meeting notes can be found here: ${meetingNotesLink}.
+Weekly meeting can be joined here: ${zoomLink}. Meeting notes can be found here: ${meetingNotesLink}.
 
-            All topics above this message have been, or will be, discussed at the meeting on ${currentMeetingDate}.
+All topics above this message have been, or will be, discussed at the meeting on ${currentMeetingDate}.
             
-            **Please include all meeting topics for the ${futureMeetingDate} meeting below this message*.*`);
+**Please include all meeting topics for the ${futureMeetingDate} meeting below this message*.*`);
+    }, {
+        scheduled: true,
+        timezone: 'America/Chicago'
     });
 })
 
