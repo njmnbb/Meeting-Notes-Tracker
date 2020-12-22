@@ -11,7 +11,7 @@ bot.on('ready', function() {
     const futureMeetingDate = getMeetingDate(true);
 
     cron.schedule('0 0 19 * * */2', () => {
-        bot.channels.cache.get('776261999595356223')
+        bot.channels.cache.get('790298224535666709')
             .send(`@everyone
 
 Every topic below this message will be discussed at the weekly Cat Piss meeting on ${futureMeetingDate}.
