@@ -6,11 +6,10 @@ const bot = new Discord.Client();
 bot.login(token);
 
 bot.on('ready', function() {
-    
-    const currentMeetingDate = getMeetingDate(false);
-    const futureMeetingDate = getMeetingDate(true);
-
     cron.schedule('0 0 19 * * */2', () => {
+        const currentMeetingDate = getMeetingDate(false);
+        const futureMeetingDate = getMeetingDate(true);
+        
         bot.channels.cache.get('790298224535666709')
             .send(`@everyone
 
