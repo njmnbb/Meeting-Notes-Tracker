@@ -6,7 +6,7 @@ const bot = new Discord.Client();
 bot.login(token);
 
 bot.on('ready', function() {
-    cron.schedule('0 0 19 * * Tuesday', () => {
+    cron.schedule('0 55 18 * * Tuesday', () => {
         const currentMeetingDate = getMeetingDate(false);
         const futureMeetingDate = getMeetingDate(true);
         
