@@ -21,7 +21,7 @@ Meeting notes can be found here: ${meetingNotesLink}.
 
 All topics above this message have been, or will be, discussed at the meeting on ${currentMeetingDate}.
             
-**Please include all meeting topics for the ${futureMeetingDate} meeting below this message*.*`);
+**Please include all meeting topics for the ${futureMeetingDate} meeting below this message.**`);
     }, {
         scheduled: true,
         timezone: 'America/Chicago'
@@ -31,5 +31,5 @@ All topics above this message have been, or will be, discussed at the meeting on
 function getMeetingDate(isFutureMeeting) {
     let date = new Date();
     isFutureMeeting ? date.setDate(date.getDate() + 7) : null;
-    return new Intl.DateTimeFormat().format(date);
+    return date.toLocaleDateString('en-US', { timeZone: 'America/Chicago' });
 }
