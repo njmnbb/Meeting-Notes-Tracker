@@ -15,7 +15,9 @@ bot.on('ready', function() {
 
 Every topic below this message will be discussed at the weekly Cat Piss meeting on ${futureMeetingDate}.
 
-Weekly meeting can be joined here: ${zoomLink}. Meeting notes can be found here: ${meetingNotesLink}.
+Weekly meeting can be joined here: ${zoomLink}.
+
+Meeting notes can be found here: ${meetingNotesLink}.
 
 All topics above this message have been, or will be, discussed at the meeting on ${currentMeetingDate}.
             
@@ -24,7 +26,7 @@ All topics above this message have been, or will be, discussed at the meeting on
         scheduled: true,
         timezone: 'America/Chicago'
     });
-})
+});
 
 function getMeetingDate(isFutureMeeting) {
     let date = new Date();
