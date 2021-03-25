@@ -79,7 +79,6 @@ Meeting notes can be found here: ${meetingNotesLink}.
 All topics above this message have been, or will be, discussed at the meeting on ${currentMeetingDate}.
             
 **Please include all meeting topics for the ${futureMeetingDate} meeting below this message.**`);
-    }
     }, {
         scheduled: true,
         timezone: 'America/Chicago'
