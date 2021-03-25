@@ -59,6 +59,13 @@ bot.on('ready', function() {
     scheduleCronJob();
 });
 
+bot.on('message', async (message) => {
+    if(message.content === '!schedule') {
+        let schedule = await getCurrentMeetingSchedule();
+        message.channel.send(`Meetings occur every ${schedule.meetingDate} at ${schedule.meetingTime}`);
+    }
+});
+
 async function scheduleCronJob() {
     let currentMeetingSchedule = await getCurrentMeetingSchedule();
     let cronSyntax = createCronSyntax( currentMeetingSchedule );
