@@ -1,0 +1,114 @@
+<html>
+    <head>
+        <title>Webzone yaaaaay</title>
+        <link rel="stylesheet" type="text/css" href="/css/meeting-notes.css">
+        <base href="/">
+    
+    </head>
+    <body>
+        <h1>Hi, welcoome to my web zone</h1>
+
+        <h2 id='messageBanner'></h2>
+
+        <form action="/update" method="post" id="cronJobForm">
+            <p>Enter a new meeting day:</p>
+            <ul>
+                <li>
+                    <input type="radio" name="date_field" value="Sunday" />
+                    <label for="Sunday">Sunday</label>
+                </li>
+                <li>
+                    <input type="radio" name="date_field" value="Monday" />
+                    <label for="Monday">Monday</label>
+                </li>
+                <li>
+                    <input type="radio" name="date_field" value="Tuesday" />
+                    <label for="Tuesday">Tuesday</label>
+                </li>
+                <li>
+                    <input type="radio" name="date_field" value="Wednesday" />
+                    <label for="Wednesday">Wednesday</label>
+                </li>
+                <li>
+                    <input type="radio" name="date_field" value="Thursday" />
+                    <label for="Thursday">Thursday</label>
+                </li>
+                <li>
+                    <input type="radio" name="date_field" value="Friday" />
+                    <label for="Friday">Friday</label>
+                </li>
+                <li>
+                    <input type="radio" name="date_field" value="Saturday" />
+                    <label for="Saturday">Saturday</label>
+                </li>
+            </ul>
+
+            <label> Enter new meeting start time:
+                <input type="time" name="time_field" />
+            </label>
+            
+            <input type="submit" />
+        </form>
+
+        <script>
+           
+           fetchCurrentMeetingSchedule();
+
+            async function fetchCurrentMeetingSchedule() {
+                // fetch('/fetchCurrentMeetingSchedule')
+                //     .then(function(schedule) {
+                //         schedule = await schedule.text();
+                //         messageBanner.textContent = `The current meeting schedule occurs every ${schedule.meetingDate} at ${schedule.meetingTime}`;
+                //     }).catch(err => {
+                //         console.log(err);
+                //     });
+                fetch('/fetchCurrentMeetingSchedule')
+                    .then(response => response.json())
+                    .then(schedule => messageBanner.textContent = `The current meeting schedule occurs every ${schedule.meetingDate} at ${schedule.meetingTime}`)
+                    .catch(error => console.log('buhhhh' + error));
+            }
+
+            async function postFormDataAsJson({ url, formData }) {
+                const plainFormData = Object.fromEntries(formData.entries());
+                const formDataJsonString = JSON.stringify(plainFormData);
+
+                const fetchOptions = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                    },
+                    body: formDataJsonString,
+                };
+
+                const response = await fetch(url, fetchOptions);
+
+                if (!response.ok) {
+                    const errorMessage = await response.text();
+                    throw new Error(errorMessage);
+                }
+
+                return response.text();
+            }
+
+            async function handleFormSubmit(event) {
+                event.preventDefault();
+
+                const form = event.currentTarget;
+                const url = form.action;
+
+                try {
+                    const formData = new FormData(form);
+                    const responseData = await postFormDataAsJson({ url, formData });
+
+                    messageBanner.textContent = responseData;
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+
+            const exampleForm = document.getElementById("cronJobForm");
+            exampleForm.addEventListener("submit", handleFormSubmit);
+        </script>
+    </body>
+</html>
