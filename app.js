@@ -30,6 +30,11 @@ app.get('/meeting-notes', function(request, response) {
 // Updates cron job with requested time and date
 app.post('/update', async function(request, response) {
 
+    // Stopping and removing previous task
+    let tasks = cron.getTasks();
+    tasks[0].stop();
+    tasks.splice(0, 1);
+
     // Check if request is valid
     if(request.body.date_field != undefined && request.body.time_field != '') {
 
@@ -61,21 +66,21 @@ bot.on('ready', function() {
 
 bot.on('message', async (message) => {
     if(message.content === '!schedule') {
-        let schedule = await getCurrentMeetingSchedule();
+        const schedule = await getCurrentMeetingSchedule();
         message.channel.send(`Meetings occur every ${schedule.meetingDate} at ${schedule.meetingTime}`);
     }
 });
 
 async function scheduleCronJob() {
     let currentMeetingSchedule = await getCurrentMeetingSchedule();
-    let cronSyntax = createCronSyntax( currentMeetingSchedule );
+    const cronSyntax = createCronSyntax( currentMeetingSchedule );
 
-    cron.schedule(cronSyntax, () => {
+    const task = cron.schedule(cronSyntax, () => {
         const currentMeetingDate = getMeetingDate(false);
         const futureMeetingDate = getMeetingDate(true);
         
         bot.channels.cache.get(discordTextChannel)
-            .send(`@everyone
+            .send(`@OG Cat Pissers
 
 Every topic below this message will be discussed at the weekly Cat Piss meeting on ${futureMeetingDate}.
 
@@ -90,10 +95,12 @@ All topics above this message have been, or will be, discussed at the meeting on
         scheduled: true,
         timezone: 'America/Chicago'
     });
+
+    task.start();
 }
 
 function createCronSyntax(dateAndTime) {
-    let meetingTime = dateAndTime.meetingTime.split(':');
+    const meetingTime = dateAndTime.meetingTime.split(':');
     return `0 ${meetingTime[1]} ${meetingTime[0]} * * ${dateAndTime.meetingDate}`;
 }
 
@@ -104,7 +111,7 @@ function getMeetingDate(isFutureMeeting) {
 }
 
 function createMeetingUpdateObject(request) {
-    let updatedMeetingDateTime = {};
+    const updatedMeetingDateTime = {};
 
     if(request.body.date_field != undefined) updatedMeetingDateTime.meetingDate = request.body.date_field;
     if(request.body.time_field != '') updatedMeetingDateTime.meetingTime = request.body.time_field;
@@ -113,7 +120,7 @@ function createMeetingUpdateObject(request) {
 }
 
 async function getCurrentMeetingSchedule() {
-    let meetingSchedule = await MeetingInformation.findOne({ _id: dateAndTimeMongoID });
+    const meetingSchedule = await MeetingInformation.findOne({ _id: dateAndTimeMongoID });
     return meetingSchedule;
 }
 
