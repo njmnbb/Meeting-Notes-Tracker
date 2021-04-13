@@ -1,4 +1,4 @@
-const {token, zoomLink, meetingNotesLink, dateAndTimeMongoID, discordTextChannel} = require("./config.json");
+const {token, zoomLink, meetingNotesLink, dateAndTimeMongoID, discordTextChannel, roleId} = require("./config.json");
 const Discord = require("discord.js");
 const cron = require("node-cron");
 const bot = new Discord.Client();
@@ -78,9 +78,9 @@ async function scheduleCronJob() {
     const task = cron.schedule(cronSyntax, () => {
         const currentMeetingDate = getMeetingDate(false);
         const futureMeetingDate = getMeetingDate(true);
-        
+
         bot.channels.cache.get(discordTextChannel)
-            .send(`@OG Cat Pissers
+            .send(`<@&${roleId}>
 
 Every topic below this message will be discussed at the weekly Cat Piss meeting on ${futureMeetingDate}.
 
