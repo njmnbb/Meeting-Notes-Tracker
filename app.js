@@ -65,6 +65,12 @@ bot.on('ready', function() {
 });
 
 bot.on('message', async (message) => {
+
+    if(message.mentions.has(bot.user)) {
+        message.channel.send('No, please...I can do better. I\'ll only send a notification once per week I swear! Please don\'t kill me!');
+        return;
+    }
+
     if(message.content === '!schedule') {
         const schedule = await getCurrentMeetingSchedule();
         message.channel.send(`Meetings occur every ${schedule.meetingDate} at ${schedule.meetingTime}`);
